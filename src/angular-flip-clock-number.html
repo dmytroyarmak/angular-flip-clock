@@ -1,0 +1,14 @@
+<ul class="flip" ng-class="{'play': vm.previousValue !== vm.currentValue}">
+  <li ng-repeat="number in ::vm.numbers" ng-class="{'flip-clock-active': number === vm.currentValue, 'flip-clock-before': number === vm.previousValue && vm.previousValue !== vm.currentValue}">
+    <a href="#">
+      <div class="up">
+        <div class="shadow"></div>
+        <div class="inn">{{::number}}</div>
+      </div>
+      <div class="down">
+        <div class="shadow"></div>
+        <div class="inn">{{::number}}</div>
+      </div>
+    </a>
+  </li>
+</ul>

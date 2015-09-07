@@ -1,1 +1,18 @@
-<h1>angular-flip-clock</h1>
+<div class="flip-counter clock flip-clock-wrapper">
+  <dy-flip-clock-divider label="Hours"></dy-flip-clock-divider>
+  <dy-flip-clock-number value="0"></dy-flip-clock-number>
+  <dy-flip-clock-number value="0"></dy-flip-clock-number>
+
+  <dy-flip-clock-divider label="Minutes"></dy-flip-clock-divider>
+  <dy-flip-clock-number value="0"></dy-flip-clock-number>
+  <dy-flip-clock-number value="0"></dy-flip-clock-number>
+
+  <dy-flip-clock-divider label="Seconds"></dy-flip-clock-divider>
+  <dy-flip-clock-number value="(vm.seconds - vm.seconds % 10)/10"></dy-flip-clock-number>
+  <dy-flip-clock-number value="vm.seconds % 10"></dy-flip-clock-number>
+  <pre>
+    {{(vm.seconds - vm.seconds % 10)/10}}
+    {{vm.seconds % 10}}
+  </pre>
+  </ul>
+</div>
