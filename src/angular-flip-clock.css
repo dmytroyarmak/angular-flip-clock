@@ -207,7 +207,7 @@
   height: 100px;
 }
 
-.flip-clock-divider:first-child {
+.flip-clock-divider-hidden {
   width: 0;
 }
 

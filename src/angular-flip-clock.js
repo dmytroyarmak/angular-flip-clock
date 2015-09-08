@@ -147,25 +147,26 @@
       }
 
   angular.module('dyFlipClock')
-    .directive('dyFlipClockDivider', dyFlipClockDividerDirective)
-    .controller('DyFlipClockDividerController', DyFlipClockDividerController);
+    .directive('dyFlipClockLabel', dyFlipClockLabelDirective)
+    .controller('DyFlipClockLabelController', DyFlipClockLabelController);
 
-  dyFlipClockDividerDirective.$inject = [];
-  function dyFlipClockDividerDirective() {
+  dyFlipClockLabelDirective.$inject = [];
+  function dyFlipClockLabelDirective() {
     return {
       restrict: 'EA',
       scope: {
-        label: '@'
+        text: '@',
+        hideDivider: '='
       },
       bindToController: true,
-      controller: 'DyFlipClockDividerController',
+      controller: 'DyFlipClockLabelController',
       controllerAs: 'vm',
-      templateUrl: '/src/angular-flip-clock-divider.html'
+      templateUrl: '/src/angular-flip-clock-label.html'
     };
   }
 
-  DyFlipClockDividerController.$inject = [];
-  function DyFlipClockDividerController() {
+  DyFlipClockLabelController.$inject = [];
+  function DyFlipClockLabelController() {
   }
 
 })(window, document);
