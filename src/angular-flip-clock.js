@@ -23,6 +23,11 @@
 
   DyFlipClockController.$inject = ['$interval'];
   function DyFlipClockController($interval) {
+    var MILISECONDS_IN_SECOND = 1000;
+    var MILISECONDS_IN_MINUTE = MILISECONDS_IN_SECOND * 60;
+    var MILISECONDS_IN_HOUR = MILISECONDS_IN_MINUTE * 60;
+    var MILISECONDS_IN_24_HOURS = MILISECONDS_IN_HOUR * 24;
+
     var vm = this;
 
     vm.time = 0;
@@ -61,15 +66,19 @@
     }
 
     function _getHours(time) {
-      return Math.floor((time % 90000 - _getMinutes(time)) / 3600);
+      return Math.floor((time % MILISECONDS_IN_24_HOURS - _getMinutes(time)) / MILISECONDS_IN_HOUR);
     }
 
     function _getMinutes(time) {
-      return Math.floor((time % 3600 - _getSeconds(time)) / 60);
+      return Math.floor((time % MILISECONDS_IN_HOUR - _getSeconds(time)) / MILISECONDS_IN_MINUTE);
     }
 
     function _getSeconds(time) {
-      return Math.floor(time % 60);
+      return Math.floor((time % MILISECONDS_IN_MINUTE - _getMiliseconds(time)) / MILISECONDS_IN_SECOND);
+    }
+
+    function _getMiliseconds(time) {
+      return Math.floor(time % MILISECONDS_IN_SECOND);
     }
 
     function _getTensPlace(number) {
