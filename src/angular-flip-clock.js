@@ -4,30 +4,86 @@
   angular.module('dyFlipClock', []);
 
   angular.module('dyFlipClock')
-    .directive('dyFlipClock', dyFlipClockDirective);
+    .directive('dyFlipClock', dyFlipClockDirective)
+    .controller('DyFlipClockController', DyFlipClockController);
 
   dyFlipClockDirective.$inject = [];
   function dyFlipClockDirective() {
     return {
       restrict: 'EA',
       scope: {
+        time: '='
       },
       bindToController: true,
+      controller: 'DyFlipClockController',
       controllerAs: 'vm',
-      controller: function($interval) {
-        var vm = this;
-        vm.seconds = 0;
-
-        $interval(function() {
-          vm.seconds += 1;
-        }, 1000);
-      },
       templateUrl: '/src/angular-flip-clock.html'
     };
   }
 
+  DyFlipClockController.$inject = ['$interval'];
+  function DyFlipClockController($interval) {
+    var vm = this;
+
+    vm.time = 0;
+
+    vm.getHoursTensPlace = getHoursTensPlace;
+    vm.getHoursOnesPlace = getHoursOnesPlace;
+    vm.getMinutesTensPlace = getMinutesTensPlace;
+    vm.getMinutesOnesPlace = getMinutesOnesPlace;
+    vm.getSecondsTensPlace = getSecondsTensPlace;
+    vm.getSecondsOnesPlace = getSecondsOnesPlace;
+
+    //////////
+
+    function getHoursTensPlace() {
+      return _getTensPlace(_getHours(vm.time));
+    }
+
+    function getHoursOnesPlace() {
+      return _getOnesPlace(_getHours(vm.time));
+    }
+
+    function getMinutesTensPlace() {
+      return _getTensPlace(_getMinutes(vm.time));
+    }
+
+    function getMinutesOnesPlace() {
+      return _getOnesPlace(_getMinutes(vm.time));
+    }
+
+    function getSecondsTensPlace() {
+      return _getTensPlace(_getSeconds(vm.time));
+    }
+
+    function getSecondsOnesPlace() {
+      return _getOnesPlace(_getSeconds(vm.time));
+    }
+
+    function _getHours(time) {
+      return Math.floor((time % 90000 - _getMinutes(time)) / 3600);
+    }
+
+    function _getMinutes(time) {
+      return Math.floor((time % 3600 - _getSeconds(time)) / 60);
+    }
+
+    function _getSeconds(time) {
+      return Math.floor(time % 60);
+    }
+
+    function _getTensPlace(number) {
+      return (number % 100 - _getOnesPlace(number)) / 10;
+    }
+
+    function _getOnesPlace(number) {
+      return number % 10;
+    }
+  }
+
   angular.module('dyFlipClock')
-    .directive('dyFlipClockNumber', dyFlipClockNumberDirective);
+    .directive('dyFlipClockNumber', dyFlipClockNumberDirective)
+    .controller('DyFlipClockNumberController', DyFlipClockNumberController);
 
   dyFlipClockNumberDirective.$inject = [];
   function dyFlipClockNumberDirective() {
@@ -38,26 +94,52 @@
       },
       bindToController: true,
       controllerAs: 'vm',
-      controller: function($scope, $parse, $attrs) {
-        var vm = this;
-
-        vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        vm.currentValue = null;
-        vm.previousValue = null;
-
-        $scope.$watch(function() {
-          return $parse($attrs.value)($scope.$parent);
-        }, function(newValue, oldValue) {
-          vm.currentValue = newValue;
-          vm.previousValue = oldValue;
-        });
-      },
+      controller: 'DyFlipClockNumberController',
       templateUrl: '/src/angular-flip-clock-number.html'
     };
   }
 
+  DyFlipClockNumberController.$inject = ['$scope', '$parse', '$attrs'];
+  function DyFlipClockNumberController($scope, $parse, $attrs) {
+        var vm = this;
+
+        vm.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        vm.currentValue = 0;
+        vm.previousValue = 0;
+
+        vm.isActive = isActive;
+        vm.isBefore = isBefore;
+        vm.isAnimated = isAnimated;
+
+        activate();
+
+        //////////
+
+        function activate() {
+          $scope.$watch(function getValueFromParentScope() {
+            return $parse($attrs.value)($scope.$parent);
+          }, function onValueChanged(newValue, oldValue) {
+            vm.currentValue = newValue;
+            vm.previousValue = oldValue;
+          });
+        }
+
+        function isActive(number) {
+          return vm.currentValue === number;
+        }
+
+        function isBefore(number) {
+          return vm.previousValue !== vm.currentValue && number === vm.previousValue;
+        }
+
+        function isAnimated() {
+          return vm.previousValue !== vm.currentValue;
+        }
+      }
+
   angular.module('dyFlipClock')
-    .directive('dyFlipClockDivider', dyFlipClockDividerDirective);
+    .directive('dyFlipClockDivider', dyFlipClockDividerDirective)
+    .controller('DyFlipClockDividerController', DyFlipClockDividerController);
 
   dyFlipClockDividerDirective.$inject = [];
   function dyFlipClockDividerDirective() {
@@ -67,9 +149,14 @@
         label: '@'
       },
       bindToController: true,
+      controller: 'DyFlipClockDividerController',
       controllerAs: 'vm',
-      controller: angular.noop,
       templateUrl: '/src/angular-flip-clock-divider.html'
     };
   }
+
+  DyFlipClockDividerController.$inject = [];
+  function DyFlipClockDividerController() {
+  }
+
 })(window, document);

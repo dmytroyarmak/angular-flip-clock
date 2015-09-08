@@ -1,5 +1,8 @@
-<ul class="flip" ng-class="{'play': vm.previousValue !== vm.currentValue}">
-  <li ng-repeat="number in ::vm.numbers" ng-class="{'flip-clock-active': number === vm.currentValue, 'flip-clock-before': number === vm.previousValue && vm.previousValue !== vm.currentValue}">
+<ul class="flip" ng-class="{'play': vm.isAnimated()}">
+  <li
+    ng-repeat="number in ::vm.numbers"
+    ng-class="{'flip-clock-active': vm.isActive(number), 'flip-clock-before': vm.isBefore(number)}"
+  >
     <a href="#">
       <div class="up">
         <div class="shadow"></div>

@@ -7,10 +7,20 @@
   <script src="../src/angular-flip-clock.js"></script>
   <link rel="stylesheet" href="../src/angular-flip-clock.css">
   <script>
-    angular.module('myApp', ['dyFlipClock']);
+    angular
+      .module('myApp', ['dyFlipClock'])
+      .run(function($rootScope, $interval) {
+        $rootScope.time = 0;
+
+        $interval(function() {
+          $rootScope.time += 1;
+        }, 1000);
+      });
   </script>
 </head>
 <body ng-app="myApp">
-  <dy-flip-clock></dy-flip-clock>
+  <div style="margin: 100px auto; width: 445px;">
+    <dy-flip-clock time="time"></dy-flip-clock>
+  </div>
 </body>
 </html>
