@@ -1,0 +1,33 @@
+{
+  "name": "angular-flip-clock",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dmytroyarmak/angular-flip-clock",
+  "authors": [
+    "Dmytro Yarmak <dmytroyarmak@gmail.com>"
+  ],
+  "description": "Port of FlipClock.js to Angular without any dependencies",
+  "main": "dist/angular-flip-clock.tpl.min.js",
+  "keywords": [
+    "angular",
+    "directive",
+    "flipclock",
+    "timer",
+    "time",
+    "clock",
+    "watch",
+    "component",
+    "countdown",
+    "timeout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "*"
+  }
+}

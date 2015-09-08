@@ -21,9 +21,11 @@
     "time",
     "clock",
     "watch",
-    "component"
+    "component",
+    "countdown",
+    "timeout"
   ],
-  "author": "Dmytro Yarmak",
+  "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dmytroyarmak/angular-flip-clock/issues"
