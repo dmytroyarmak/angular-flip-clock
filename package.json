@@ -30,5 +30,18 @@
   "bugs": {
     "url": "https://github.com/dmytroyarmak/angular-flip-clock/issues"
   },
-  "homepage": "https://github.com/dmytroyarmak/angular-flip-clock#readme"
+  "homepage": "https://github.com/dmytroyarmak/angular-flip-clock#readme",
+  "dependencies": {
+    "angular": "*"
+  },
+  "devDependencies": {
+    "del": "^2.0.1",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-uglify": "^1.4.0",
+    "gulp-util": "^3.0.6",
+    "gulp-wrap": "^0.11.0",
+    "is": "^3.0.1"
+  }
 }
