@@ -10,6 +10,7 @@ var gulpUglify = require('gulp-uglify');
 var gulpWrap = require('gulp-wrap');
 var gulpMinifyCss = require('gulp-minify-css');
 var gulpNgHtml2Js = require('gulp-ng-html2js');
+var browserSync = require('browser-sync').create();
 
 var paths = {
   CSS_SRC: 'src/css/**/*.css',
@@ -74,6 +75,19 @@ gulp.task('minify-js', ['wrap-js'], function() {
     .pipe(gulpRename(addMinToBasename))
     .pipe(gulp.dest(paths.DIST));
 });
+
+gulp.task('serve', ['build'], function() {
+    browserSync.init({
+        server: {
+            baseDir: './'
+        },
+        startPath: '/example'
+    });
+
+    gulp.watch('src/**/*', ['build-and-reload']);
+});
+
+gulp.task('build-and-reload', ['build'], browserSync.reload);
 
 gulp.task('build-css', ['copy-css', 'minify-css']);
 

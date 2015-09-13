@@ -35,6 +35,7 @@
     "angular": "*"
   },
   "devDependencies": {
+    "browser-sync": "^2.9.3",
     "del": "^2.0.1",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
