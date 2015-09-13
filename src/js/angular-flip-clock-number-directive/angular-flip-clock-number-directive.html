@@ -1,17 +1,18 @@
-<ul class="flip" ng-class="{'play': vm.isAnimated()}">
+<ul class="dy-flip-clock-number" ng-class="{'dy-flip-clock-number-animated': vm.isAnimated()}">
   <li
     ng-repeat="number in ::vm.numbers"
-    ng-class="{'flip-clock-active': vm.isActive(number), 'flip-clock-before': vm.isBefore(number)}"
+    class="dy-flip-clock-number-digit"
+    ng-class="{'dy-flip-clock-number-digit-active': vm.isActive(number), 'dy-flip-clock-number-digit-before': vm.isBefore(number)}"
   >
-    <a href="#">
-      <div class="up">
-        <div class="shadow"></div>
-        <div class="inn">{{::number}}</div>
+    <div class="dy-flip-clock-card">
+      <div class="dy-flip-clock-card-up">
+        <div class="dy-flip-clock-card-shadow"></div>
+        <div class="dy-flip-clock-card-value dy-flip-clock-card-value-up">{{::number}}</div>
       </div>
-      <div class="down">
-        <div class="shadow"></div>
-        <div class="inn">{{::number}}</div>
+      <div class="dy-flip-clock-card-down">
+        <div class="dy-flip-clock-card-shadow"></div>
+        <div class="dy-flip-clock-card-value dy-flip-clock-card-value-down">{{::number}}</div>
       </div>
-    </a>
+    </div>
   </li>
 </ul>
