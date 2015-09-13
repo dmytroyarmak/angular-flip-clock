@@ -10,12 +10,16 @@ var gulpUglify = require('gulp-uglify');
 var gulpWrap = require('gulp-wrap');
 var gulpMinifyCss = require('gulp-minify-css');
 var gulpNgHtml2Js = require('gulp-ng-html2js');
+var gulpPostcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+
 var browserSync = require('browser-sync').create();
 
 var paths = {
   CSS_SRC: 'src/css/**/*.css',
   JS_SRC: 'src/js/**/*.js',
   JS_DIST: 'dist/**/*.js',
+  CSS_DIST: 'dist/**/*.css',
   FULL_JS_SRC: ['dist/angular-flip-clock.js', 'dist/angular-flip-clock.tpl.js'],
   TEMPLATES_SRC: 'src/js/**/*.html',
   DIST: 'dist/'
@@ -31,11 +35,16 @@ gulp.task('clean', function() {
 
 gulp.task('copy-css', ['clean'], function() {
   return gulp.src(paths.CSS_SRC)
+    .pipe(gulpPostcss([
+      autoprefixer({
+        browsers: ['last 2 versions']
+      })
+    ]))
     .pipe(gulp.dest(paths.DIST));
 });
 
-gulp.task('minify-css', ['clean'], function() {
-  return gulp.src(paths.CSS_SRC)
+gulp.task('minify-css', ['copy-css'], function() {
+  return gulp.src(paths.CSS_DIST)
     .pipe(gulpMinifyCss())
     .pipe(gulpRename(addMinToBasename))
     .pipe(gulp.dest(paths.DIST));
