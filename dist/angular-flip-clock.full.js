@@ -18,7 +18,7 @@ function dyFlipClockDirective() {
   return {
     restrict: 'EA',
     scope: {
-      time: '='
+      time: '@'
     },
     bindToController: true,
     controller: 'DyFlipClockController',
@@ -48,27 +48,27 @@ function DyFlipClockController($interval) {
   //////////
 
   function getHoursTensPlace() {
-    return _getTensPlace(_getHours(vm.time));
+    return _getTensPlace(_getHours(_getTimeAsNumber()));
   }
 
   function getHoursOnesPlace() {
-    return _getOnesPlace(_getHours(vm.time));
+    return _getOnesPlace(_getHours(_getTimeAsNumber()));
   }
 
   function getMinutesTensPlace() {
-    return _getTensPlace(_getMinutes(vm.time));
+    return _getTensPlace(_getMinutes(_getTimeAsNumber()));
   }
 
   function getMinutesOnesPlace() {
-    return _getOnesPlace(_getMinutes(vm.time));
+    return _getOnesPlace(_getMinutes(_getTimeAsNumber()));
   }
 
   function getSecondsTensPlace() {
-    return _getTensPlace(_getSeconds(vm.time));
+    return _getTensPlace(_getSeconds(_getTimeAsNumber()));
   }
 
   function getSecondsOnesPlace() {
-    return _getOnesPlace(_getSeconds(vm.time));
+    return _getOnesPlace(_getSeconds(_getTimeAsNumber()));
   }
 
   function _getHours(time) {
@@ -93,6 +93,12 @@ function DyFlipClockController($interval) {
 
   function _getOnesPlace(number) {
     return number % 10;
+  }
+
+  function _getTimeAsNumber() {
+    var timeAsNumber = window.parseInt(vm.time, 10);
+    var isTimeNaN = (timeAsNumber !== timeAsNumber);
+    return isTimeNaN ? 0 : timeAsNumber;
   }
 }
 
