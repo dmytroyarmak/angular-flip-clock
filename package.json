@@ -1,6 +1,6 @@
 {
   "name": "angular-flip-clock",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Port of FlipClock.js to Angular without any dependencies",
   "main": "dist/angular-flip-clock.tpl.min.js",
   "directories": {
